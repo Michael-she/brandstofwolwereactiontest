@@ -173,7 +173,7 @@ export function main() {
                 alt="Shape"
                 className="rounded-full"
                 width={100}
-                src="/brandstofwolfie.png"
+                src="/brandstofwolfie.PNG"
                 style={{
                   aspectRatio: "64/64",
                   objectFit: "cover",
