@@ -1,33 +1,35 @@
 // Using promise-based mysql2
-import mysql from 'mysql2/promise';
+import mysql from 'mysql2';
 
 
-const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
 // Define and export the GET method
 export async function GET() {
-  try {
+  try{
     // Create a connection to the database
-    const connection = await mysql.createConnection(process.env.DATABASE_URL);
-
+    const connection =  mysql.createConnection(process.env.DATABASE_URL);
+    return new Promise((resolve, reject) => {
     // Execute your query
     const query = `SELECT * FROM BrandstofWolweLeaderboard ORDER BY time ASC;`;
-    const [results] = await connection.query(query);
+    connection.query(query, (err, results, fields) => {
+      console.log(results);
+      resolve( new Response(JSON.stringify(results), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          // Ensure no caching for this API call
+          'Cache-Control': 'no-store, max-age=0',
+        },
+      })
+    )})});
 
     // Close the connection pool
-    await connection.end();
+     
 
    
 
     // Return the results as JSON
-    return new Response(JSON.stringify(results), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        // Ensure no caching for this API call
-        'Cache-Control': 'no-store, max-age=0',
-      },
-    });
+    
   } catch (err) {
     console.error(err);
     return new Response(JSON.stringify({ message: 'Server error' }), {
