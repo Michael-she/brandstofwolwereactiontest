@@ -1,27 +1,35 @@
-'use server'
+// Using promise-based mysql2
+import mysql from 'mysql2/promise';
 
-import mysql from 'mysql2';
-import { NextApiRequest, NextApiResponse } from 'next';
-import bodyParser from 'body-parser';
-import { NextResponse } from 'next/server';
-const connection = mysql.createConnection(process.env.DATABASE_URL);
-
+// Define and export the GET method
 export async function GET() {
+  try {
+    // Create a connection to the database
+    const connection = await mysql.createPool(process.env.DATABASE_URL);
 
-    const query = `SELECT * FROM BrandstofWolweLeaderboard ORDER BY time ASC ;`;
-    console.log(query);
+    // Execute your query
+    const query = `SELECT * FROM BrandstofWolweLeaderboard ORDER BY time ASC;`;
+    const [results] = await connection.query(query);
 
-    return new Promise((resolve, reject) => {
-    connection.query(query, (err, results, fields) => {
-        if (err) {
-            console.log(err.message);
-            reject( NextResponse.json({ message: 'Error' }));
-        } else {
-         resolve (NextResponse.json(results));
-        }
+    // Close the connection pool
+    await connection.end();
+
+    // Return the results as JSON
+    return new Response(JSON.stringify(results), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        // Ensure no caching for this API call
+        'Cache-Control': 'no-store, max-age=0',
+      },
     });
-});
-
-
-
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ message: 'Server error' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 }
