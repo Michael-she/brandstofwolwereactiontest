@@ -42,10 +42,10 @@ export function main() {
     const [difference, setDifference] = useState(0);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [name, setName] = useState('');
-
+// eslint-disable-next-line react-hooks/rules-of-hooks
     const [leaderboardData, setLeaderboardData] = useState([]);
 
-   
+   // eslint-disable-next-line react-hooks/rules-of-hooks
      useEffect(() => {
       fetch('/api/GetScore')
       .then(response => response.json())
@@ -202,7 +202,7 @@ export function main() {
               <h2 className="text-xl font-semibold mb-2">Leaderboard</h2>
               <ul className="space-y-2">
                 {leaderboardData.map((item, index) => (
-                <div className="flex justify-between">
+                <div className="flex justify-between" key={index}>
                 <span className="basis-1/3 text-left">{index}. {item.name}</span>
                 <span className="basis-1/3 text-center">{item.time}ms</span>
                 <span className="basis-1/3 text-right">{item.date.slice(0, 10)}</span>

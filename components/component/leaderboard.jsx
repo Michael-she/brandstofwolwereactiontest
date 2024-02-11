@@ -33,7 +33,7 @@ export default function Leaderboard() {
       <h2 className="text-xl font-semibold mb-2">Leaderboard</h2>
               <ul className="space-y-2">
                 {leaderboardData.map((item, index) => (
-                <div className="flex justify-between">
+                <div className="flex justify-between" key={index}>
                 <span className="basis-1/3 text-left">{index})    {item.name}</span>
                 <span className="basis-1/3 text-center">{item.time}ms</span>
                 <span className="basis-1/3 text-right">{item.date.slice(0, 10)}</span>
