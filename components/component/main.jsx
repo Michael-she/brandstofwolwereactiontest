@@ -203,7 +203,7 @@ export function main() {
               <ul className="space-y-2">
                 {leaderboardData.map((item, index) => (
                 <div className="flex justify-between" key={index}>
-                <span className="basis-1/3 text-left">{index}. {item.name}</span>
+                <span className="basis-1/3 text-left">{index+1}. {item.name}</span>
                 <span className="basis-1/3 text-center">{item.time}ms</span>
                 <span className="basis-1/3 text-right">{item.date.slice(0, 10)}</span>
               </div>
