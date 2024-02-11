@@ -5,27 +5,31 @@ import { NextResponse } from 'next/server';
 const connection = mysql.createConnection(process.env.DATABASE_URL);
 
 export async function POST(req) {
-    
+    const { name, score } = await req.json();
+    console.log(name);
 
+    const currentDate = new Date().toISOString().slice(0, 10);
 
-       const {name, score} = await req.json();
-
-       console.log(name);
+    return new Promise((resolve, reject) => {
         
-        const currentDate = new Date().toISOString().slice(0, 10);
+
+       
 
         const query = `INSERT INTO BrandstofWolweLeaderboard (name, time, date) VALUES ('${name}', ${score}, '${currentDate}')`;
         console.log(query);
         connection.query(query, (err, results, fields) => {
             if (err) {
                 console.log(err.message);
-                return NextResponse.json({ message: 'Error' });
+                reject(NextResponse.json({ message: 'Error' }));
             } else {
-             return NextResponse.json({ message: 'Success' });
+                console.log("WOOO")
+                resolve(NextResponse.json({ message: 'Woooo' }));
             }
         });
-        return NextResponse.json({ message: 'Eh' });
+    });
 }
+
+
 
 
 

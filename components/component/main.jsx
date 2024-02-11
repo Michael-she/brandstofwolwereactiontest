@@ -5,8 +5,9 @@
  * @see https://v0.dev/t/4RW8oshkNHd
  */
 import { Button } from "@/components/ui/button"
+import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import React, { useState } from 'react';
-
+import { useEffect } from 'react';
 
 
 
@@ -41,11 +42,27 @@ export function main() {
     const [difference, setDifference] = useState(0);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [name, setName] = useState('');
+
+    const [leaderboardData, setLeaderboardData] = useState([]);
+
+   
+     useEffect(() => {
+      fetch('/api/GetScore')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        setLeaderboardData(data);
+      });
+
+     }, []);
+    
+
+
      const moveElementRandomly = () => {
       // Assuming a 800x600 px area, adjust as needed
       setIsVisible(false);
 
-      const now = new Date().getTime(); // Get current timestamp
+     
     
       const timeOut =  Math.floor(Math.random() * 4000)+1000;
       setBorder("border-4 border-black dark:border-gray-80");
@@ -55,6 +72,7 @@ export function main() {
         setIsVisible(true);
         setPosition({ left: newLeft, top: newTop });
         setBorder("");
+        const now = new Date().getTime(); // Get current timestamp
         setStartTime(now);
     }, timeOut);
       
@@ -89,9 +107,10 @@ export function main() {
   }
 
   function Submit() {
+    console
     const data = {
       name: name,
-      score: timeDifference
+      score: difference
     };
 
     fetch('/api/Setscore', {
@@ -108,6 +127,10 @@ export function main() {
       .catch(error => {
         console.error('Error:', error);
       });
+
+
+    setCompleted(false);
+    setIsVisible(false);
   }
 
 
@@ -171,26 +194,15 @@ export function main() {
             <div className="bg-gray-200 p-4 dark:bg-gray-600 w-full ">
               <h2 className="text-xl font-semibold mb-2">Leaderboard</h2>
               <ul className="space-y-2">
-                <li className="flex justify-between">
-                  <span>1. Josh</span>
-                  <span>100 points</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>2. Player 2</span>
-                  <span>95 points</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>3. Player 3</span>
-                  <span>90 points</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>4. Player 4</span>
-                  <span>85 points</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>5. Player 5</span>
-                  <span>80 points</span>
-                </li>
+                {leaderboardData.map((item, index) => (
+                <div className="flex justify-between">
+                <span className="basis-1/3 text-left">{index}. {item.name}</span>
+                <span className="basis-1/3 text-center">{item.time}ms</span>
+                <span className="basis-1/3 text-right">{item.date.slice(0, 10)}</span>
+              </div>
+              
+              
+                ))}
               </ul>
               <Button className="mt-4" variant="link">
                 View entire leaderboard
@@ -213,8 +225,8 @@ export function main() {
       </div>
       {completed &&(
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Your Name</h2>
+        <div className="bg-white p-6 rounded-lg shadow-lg text-gray-500">
+          <h2 className="text-xl font-semibold mb-4 ">Your Name</h2>
           <input
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-gray-400"
             placeholder="Your Name"
