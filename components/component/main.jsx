@@ -107,11 +107,15 @@ export function main() {
   }
 
   function Submit() {
-    console
+   
+
+
     const data = {
       name: name,
       score: difference
     };
+
+    if(name != ""){
 
     fetch('/api/Setscore', {
       method: 'POST',
@@ -133,7 +137,7 @@ export function main() {
       .catch(error => {
         console.error('Error:', error);
       });
-
+    }
       
 
     setCompleted(false);
