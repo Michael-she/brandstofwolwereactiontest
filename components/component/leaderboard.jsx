@@ -56,7 +56,7 @@ export default function Leaderboard() {
                 <div className="flex  border-b py-0 " key={index}>
 
                 
-                <span className="basis-1/12 text-left border-r py-1 xl:min-w-24 lg:min-w-20 md:min-w-16 min-w-16"> <t className="lg:text-xl  px-2 ">{index+1}) </t></span><span className="basis-1/3 text-left pl-5 py-1 lg:text-lg md:text-md text-sm whitespace-nowrap overflow-ellipsis overflow-hidden block"> {item.name}  </span>
+                <span className="basis-1/12 text-left border-r py-1 xl:min-w-24 lg:min-w-20 md:min-w-16 min-w-16"> <div className="lg:text-xl  px-2 ">{index+1}) </div></span><span className="basis-1/3 text-left pl-5 py-1 lg:text-lg md:text-md text-sm whitespace-nowrap overflow-ellipsis overflow-hidden block"> {item.name}  </span>
                 <span className="basis-1/3 text-center py-1 lg:text-lg md:text-md text-sm">{item.time}ms</span>
                 <span className="basis-1/3 text-center py-1 lg:text-lg md:text-md text-sm">{item.date.slice(0, 10)}</span>
                 </div>

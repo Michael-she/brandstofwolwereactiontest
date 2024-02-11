@@ -1,11 +1,14 @@
 // Using promise-based mysql2
 import mysql from 'mysql2/promise';
 
+
+const connection = await mysql.createConnection(process.env.DATABASE_URL);
+
 // Define and export the GET method
 export async function GET() {
   try {
     // Create a connection to the database
-    const connection = await mysql.createPool(process.env.DATABASE_URL);
+    const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
     // Execute your query
     const query = `SELECT * FROM BrandstofWolweLeaderboard ORDER BY time ASC;`;
@@ -13,6 +16,8 @@ export async function GET() {
 
     // Close the connection pool
     await connection.end();
+
+   
 
     // Return the results as JSON
     return new Response(JSON.stringify(results), {
