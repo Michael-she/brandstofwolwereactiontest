@@ -17,7 +17,7 @@ export default function Leaderboard() {
   fetch('/api/GetAllScore', {
     method: 'GET',
     headers: {
-      'Cache-Control': 'no-cache', // Tells the browser not to cache this request
+      'Cache-Control': 'no-store', // Tells the browser not to cache this request
     },
   })
    .then(response => response.json())
