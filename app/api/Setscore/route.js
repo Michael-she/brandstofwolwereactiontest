@@ -1,3 +1,5 @@
+'use server'
+
 import mysql from 'mysql2';
 import { NextApiRequest, NextApiResponse } from 'next';
 import bodyParser from 'body-parser';
