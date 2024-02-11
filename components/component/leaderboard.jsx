@@ -13,6 +13,7 @@ export default function Leaderboard() {
 
    
   useEffect(() => {
+  console.log("fetching data")
    fetch('/api/GetAllScore')
    .then(response => response.json())
    .then(data => {
