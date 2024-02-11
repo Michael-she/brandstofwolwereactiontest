@@ -14,7 +14,12 @@ export default function Leaderboard() {
    
   useEffect(() => {
   console.log("fetching data")
-   fetch('/api/GetAllScore')
+  fetch('/api/GetAllScore', {
+    method: 'GET',
+    headers: {
+      'Cache-Control': 'no-cache', // Tells the browser not to cache this request
+    },
+  })
    .then(response => response.json())
    .then(data => {
      console.log(data)

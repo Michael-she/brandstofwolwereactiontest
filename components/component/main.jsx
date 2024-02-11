@@ -47,7 +47,12 @@ export function main() {
 
    // eslint-disable-next-line react-hooks/rules-of-hooks
      useEffect(() => {
-      fetch('/api/GetScore')
+      fetch('/api/GetScore', {
+        method: 'GET',
+        headers: {
+          'Cache-Control': 'no-cache', // Tells the browser not to cache this request
+        },
+      })
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -127,7 +132,12 @@ export function main() {
       .then(response => response.json())
       .then(result => {
         console.log("Success:", result)
-        fetch('/api/GetScore')
+        fetch('/api/GetScore', {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache', // Tells the browser not to cache this request
+          },
+        })
       .then(response => response.json())
       .then(data => {
         console.log(data)
