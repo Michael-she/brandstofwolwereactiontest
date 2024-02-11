@@ -6,7 +6,7 @@ const connection = mysql.createConnection(process.env.DATABASE_URL);
 
 export async function GET() {
 
-    const query = `SELECT * FROM BrandstofWolweLeaderboard ORDER BY time ASC LIMIT 5;`;
+    const query = `SELECT * FROM BrandstofWolweLeaderboard ORDER BY time ASC ;`;
     console.log(query);
 
     return new Promise((resolve, reject) => {

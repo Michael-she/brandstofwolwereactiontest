@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-
+import Link from "next/link"
 
 
 
@@ -211,9 +211,11 @@ export function main() {
               
                 ))}
               </ul>
+              <Link href="/leaderboard">
               <Button className="mt-4" variant="link">
                 View entire leaderboard
               </Button>
+              </Link>
             </div>
           </div>
           )}
