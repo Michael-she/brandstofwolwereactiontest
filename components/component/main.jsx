@@ -65,7 +65,7 @@ export function main() {
      
     
       const timeOut =  Math.floor(Math.random() * 4000)+1000;
-      setBorder("border-4 border-black dark:border-gray-80");
+      setBorder("border-4 border-black dark:border-gray-80 ");
       setTimeout(() => {
         const newLeft = Math.floor(Math.random() * 90)+5;
         const newTop = Math.floor(Math.random() * 80)+10;
@@ -123,11 +123,18 @@ export function main() {
       .then(response => response.json())
       .then(result => {
         console.log("Success:", result)
+        fetch('/api/GetScore')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        setLeaderboardData(data);
+      });
       })
       .catch(error => {
         console.error('Error:', error);
       });
 
+      
 
     setCompleted(false);
     setIsVisible(false);
@@ -142,7 +149,7 @@ export function main() {
 
 
   return (
-    <div className="w-full h-screen relative py-6 bg-gray-100 dark:bg-gray-800 ">
+    <div className="w-full h-screen relative px-2 py-6 bg-gray-100 dark:bg-gray-800 ">
     
       
         <div className="space-y-2 text-center">
@@ -154,7 +161,7 @@ export function main() {
           </p>
         </div>
 
-        <div className={`h-3/6 ${border}`}>
+        <div className={`h-3/6  ${border}`}>
         {isVisible && (
         <div className="relative w-full h-full "  >
 
