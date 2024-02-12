@@ -14,7 +14,7 @@ export default function Leaderboard() {
    
   useEffect(() => {
   console.log("fetching data")
-  fetch('/api/GetAllScore', {
+  fetch('https://api.chucknorris.io/jokes/random', {
     cache: 'no-store', // Tells the browser not to cache this request
   })
    .then(response => response.json())
