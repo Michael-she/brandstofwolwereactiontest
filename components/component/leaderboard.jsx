@@ -7,6 +7,8 @@ import Link from "next/link";
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 
+
+
 export default function Leaderboard() {
 
   const [leaderboardData, setLeaderboardData] = useState([]);
